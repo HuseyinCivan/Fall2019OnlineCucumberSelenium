@@ -1,23 +1,29 @@
 package com.vytrack.runners;
 
-import io.cucumber.junit.Cucumber;
-import io.cucumber.junit.CucumberOptions;
-import org.junit.runner.RunWith;
 
-@RunWith(Cucumber.class)
+import io.cucumber.testng.AbstractTestNGCucumberTests;
+import io.cucumber.testng.CucumberOptions;
+import org.testng.annotations.DataProvider;
+
 @CucumberOptions(
         glue = "com/vytrack/step_definitions",
         features = "src/test/resources/features",
         dryRun = false,
         strict = false,
         tags = "@view_calendar_events",
-        plugin ={
+        plugin = {
                 "html:target/default-report",
                 "json:target/cucumber1.json",
                 "rerun:target/rerun.txt"
         }
 
 )
-public class CucumberRunner {
+public class CucumberRunner extends AbstractTestNGCucumberTests {
 
+        @Override
+        @DataProvider(parallel = true)
+        public Object[][] scenarios() {
+
+                return super.scenarios();
+        }
 }
